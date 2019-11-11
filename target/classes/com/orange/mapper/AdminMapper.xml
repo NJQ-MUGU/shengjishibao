@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.orange.mapper.AdminMapper">
+    <resultMap id="adminResultMap" type="com.orange.pojo.UserInfo">
+        <id column="user_id" property="user_id" jdbcType="BIGINT"/>
+        <result column="user_account" property="user_account" jdbcType="VARCHAR"/>
+        <result column="user_pwd" property="user_pwd" jdbcType="VARCHAR"/>
+        <result column="user_name" property="user_name" jdbcType="VARCHAR"/>
+        <result column="user_email" property="user_email" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="user_sex" jdbcType="VARCHAR"/>
+        <result column="user_birthday" property="user_birthday" jdbcType="VARCHAR"/>
+        <result column="user_signature" property="user_signature" jdbcType="VARCHAR"/>
+        <result column="user_image" property="user_image" jdbcType="VARCHAR"/>
+        <association property="state_id" resultMap="stateResultMap"/>
+        <association property="major_id" resultMap="majorResultMap"/>
+    </resultMap>
+
+    <resultMap id="stateResultMap" type="com.orange.pojo.StateInfo">
+        <id column="stateId" property="state_id" jdbcType="BIGINT"/>
+        <result column="sate_type" property="sate_type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="majorResultMap" type="com.orange.pojo.MajorInfo">
+        <id column="major_id" property="major_id" jdbcType="BIGINT"/>
+        <result column="major_name" property="major_name" jdbcType="VARCHAR"/>
+        <association property="dpm_id" resultMap="dpmResultMap"/>
+    </resultMap>
+
+    <resultMap id="dpmResultMap" type="com.orange.pojo.DepartmentInfo">
+        <id column="dpmId" property="dpm_id" jdbcType="BIGINT"/>
+        <result column="dpm_name" property="dpm_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询主编-->
+    <select id="selectEditor" resultMap="adminResultMap" parameterType="com.orange.pojo.UserInfo">
+        select u.*,d.dpm_name
+        from tb_user u,tb_department d,tb_major m
+        where u.major_id = m.major_id
+        and d.dpm_id = m.dpm_id
+        and u.state_id = 2
+        <if test="user_name!='' and user_name!=null">
+            and u.user_name like concat('%',#{user_name},'%')
+        </if>
+    </select>
+
+    <!--按id查询主编信息-->
+    <select id="selectByIdEditor" resultMap="adminResultMap" parameterType="com.orange.pojo.UserInfo">
+        select u.*,m.major_name
+        from tb_user u,tb_department d,tb_major m
+        where u.major_id = m.major_id
+        and d.dpm_id = m.dpm_id
+        and u.state_id = 2
+        and u.user_id = #{user_id}
+    </select>
+
+    <!--修改主编信息-->
+    <update id="updateEditor" parameterType="com.orange.pojo.UserInfo">
+        update tb_user set user_name = #{user_name},user_sex=#{user_sex},user_image=#{user_image},state_id= #{state_id.state_id} where user_id = #{user_id}
+    </update>
+
+    <!--查询普通用户-->
+    <select id="selectUser" resultMap="adminResultMap" parameterType="com.orange.pojo.UserInfo">
+        select u.*,m.major_name,d.dpm_name
+        from tb_user u,tb_department d,tb_major m
+        where u.major_id = m.major_id
+        and d.dpm_id = m.dpm_id
+        and u.state_id = 3
+        <if test="user_name!='' and user_name!=null">
+            and u.user_name like concat('%',#{user_name},'%')
+        </if>
+        <if test="major_id!=null">
+            <if test="major_id.dpm_id.dpm_name!='' and major_id.dpm_id.dpm_name!=null">
+                and d.dpm_name = #{major_id.dpm_id.dpm_name}
+            </if>
+        </if>
+    </select>
+
+    <!--按id查询用户信息-->
+    <select id="selectByIdUser" resultMap="adminResultMap" parameterType="com.orange.pojo.UserInfo">
+        select u.*,m.major_name,d.dpm_name
+        from tb_user u,tb_department d,tb_major m
+        where u.major_id = m.major_id
+        and d.dpm_id = m.dpm_id
+        and u.state_id = 3
+        and u.user_id = #{user_id}
+    </select>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="com.orange.pojo.UserInfo">
+        update tb_user set user_name = #{user_name},user_sex=#{user_sex},user_image=#{user_image},state_id= #{state_id.state_id},major_id=#{major_id.major_id} where user_id = #{user_id}
+    </update>
+
+    <!--添加用户信息-->
+    <insert id="insertUser" parameterType="com.orange.pojo.UserInfo">
+        insert into tb_user(user_email,user_name,user_pwd,user_sex,user_image,state_id,major_id) values(#{user_email},#{user_name},#{user_pwd},#{user_sex},#{user_image},#{state_id.state_id},#{major_id.major_id})
+    </insert>
+
+</mapper>

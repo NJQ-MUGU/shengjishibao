@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射器名字空间，即类对象的完整路径名 根据实际情况修改 -->
+<mapper namespace="com.orange.mapper.NewsMapper">
+
+    <resultMap id="NewsResultMap" type="com.orange.pojo.NewsInfo">
+        <id column="news_id" property="news_id"></id>
+        <result column="news_title" property="news_title"></result>
+        <result column="news_content" property="news_content"></result>
+        <result column="news_image" property="news_image"></result>
+        <result column="news_remarks" property="news_remarks"></result>
+        <result column="news_video" property="news_video"></result>
+        <result column="news_date" property="news_date"></result>
+        <result column="news_browse" property="news_browse"></result>
+        <association property="major_id" javaType="com.orange.pojo.MajorInfo">
+            <id column="major_id" property="major_id"></id>
+            <result column="major_name" property="major_name"></result>
+        </association>
+        <association property="user_id" javaType="com.orange.pojo.UserInfo">
+            <id column="userid" property="user_id"></id>
+            <result column="user_name" property="user_name"></result>
+            <result column="user_image" property="user_image"></result>
+        </association>
+    </resultMap>
+    <select id="selectNews_list" resultMap="NewsResultMap" parameterType="com.orange.pojo.NewsInfo">
+        SELECT
+        n.news_id,
+        n.news_title,
+        n.news_content,
+        n.news_image,
+        n.news_video,
+        n.news_date,
+        n.news_browse,
+        n.news_remarks,
+        m.major_id,
+        m.major_name,
+        u.user_id userid,
+        u.user_image,
+        u.user_name
+        FROM
+        tb_news n,
+        tb_user u,
+        tb_major m
+        where n.user_id = u.user_id and n.major_id = m.major_id group by n.news_id
+
+	</select>
+    <select id="selectNews_user" resultMap="NewsResultMap" parameterType="com.orange.pojo.NewsInfo" resultType="com.orange.pojo.NewsInfo">
+        select * from  tb_news n,tb_user u,tb_major m where  n.user_id = u.user_id  and news_id = #{news_id} group by n.news_id
+    </select>
+    <select id="selectNews_majorList" resultMap="NewsResultMap" parameterType="com.orange.pojo.NewsInfo">
+        select * from tb_news where news_id != #{news_id} and major_id = #{major_id.major_id}
+    </select>
+
+</mapper> 

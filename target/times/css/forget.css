@@ -1,0 +1,97 @@
+#all{
+    width: 100%;
+    height: 100%;
+}
+#all_left{
+    width: 50%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+#all_right{
+    width: 49%;
+    height: 100%;
+    float: right;
+    overflow: hidden;
+}
+
+#table{
+    width:300px;
+    margin: 20% auto;
+}
+#table2{
+    width:300px;
+    margin: 20% auto;
+}
+.project{
+    height: 70px;
+}
+#project{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+#project2{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+.line{
+    width: 300px;
+    height: 70px;
+}
+.hr{
+    color: rgb(194, 189, 189);
+}
+#regist{
+    float: right;
+}
+#regist2{
+    float: right;
+}
+.in{
+    text-indent: 10px;
+    margin-top: 25px;
+    width: 300px;
+    height: 40px;
+    border: 1px rgb(194, 189, 189) solid;
+}
+#login{
+    width: 300px;
+    height: 40px;
+}
+#code{
+
+    text-indent: 10px;
+    margin-top: 25px;
+    width: 200px;
+    height: 40px;
+    border: 1px rgb(194, 189, 189) solid;
+}
+#code_btn{
+    margin-top: -2px;
+    padding-top: 6px;
+    width: 96px;
+    height: 40px;
+}
+
+
+#login2{
+    width: 300px;
+    height: 40px;
+}
+#code2{
+
+    text-indent: 10px;
+    margin-top: 25px;
+    width: 200px;
+    height: 40px;
+    border: 1px rgb(194, 189, 189) solid;
+}
+#code_btn2{
+    margin-top: -2px;
+    padding-top: 6px;
+    width: 96px;
+    height: 40px;
+}

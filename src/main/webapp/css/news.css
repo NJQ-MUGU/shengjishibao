@@ -1,0 +1,72 @@
+#all{
+    width: 70%;
+    /* height: 100%; */
+    margin: 20px auto;
+}
+#left{
+    width: 68%;
+    /*height: 90%;*/
+    background-color: rgb(250, 249, 248);
+    float: left;
+    padding-bottom: 100px;
+    overflow: hidden;
+}
+#left_content{
+    width: 600px;
+    margin: 0px auto;
+}
+#right{
+    width: 30%;
+    /*height: 80%;*/
+    background-color: #F0FFFF;
+    float: right;
+
+}
+#left_dongtai{
+    width: 68%;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 20px;
+}
+.dongtai{
+    margin-left: 50px;
+    color:  #A9A9A9;
+}
+#span_name{
+    width: 100%;
+    height: 20px;
+    margin-top: 15px
+}
+#div_content{
+    width: 100%;
+
+}
+.p_content{
+    width: 90%;
+    margin-top: 15px;
+    line-height: 30px;
+
+}
+#right_conent{
+    width: 90%;
+    /*height: 100%;*/
+    margin: 10px auto;
+    
+}
+#right_ul{
+    width: 90%;
+    /*height: 100%;*/
+    margin: 10px auto;
+}
+.right_ul_li_a{
+    margin: 10px auto;
+}
+.right_li{
+    margin-top: 10px
+}
+.detail_margin{
+    margin-left: 40px
+}
+.detail_body_margin{
+    margin-left: 95px;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射器名字空间，即类对象的完整路径名 根据实际情况修改 -->
+<mapper namespace="com.orange.mapper.CommentMapper">
+
+	<resultMap id="CommentResultMap" type="com.orange.pojo.CommentInfo">
+		<id column="c_id" property="c_id"></id>
+		<result column="c_comment" property="c_comment"></result>
+		<result column="c_datetime" property="c_datetime"></result>
+		<result column="c_dot" property="c_dot"></result>
+		<association property="news_id" javaType="com.orange.pojo.NewsInfo">
+			<id column="news_id" property="news_id"></id>
+		</association>
+		<association property="user_id" javaType="com.orange.pojo.UserInfo">
+			<id column="user_id" property="user_id"></id>
+			<result column="user_name" property="user_name"></result>
+			<result column="user_image" property="user_image"></result>
+			<association property="state_id" javaType="com.orange.pojo.StateInfo">
+				<id column="state_id" property="state_id"></id>
+				<result column="state_type" property="state_type"></result>
+			</association>
+		</association>
+
+	</resultMap>
+
+    <select id="selectComment_list" resultMap="CommentResultMap" parameterType="com.orange.pojo.CommentInfo">
+
+       SELECT
+			c.c_id,c.c_comment,c.c_datetime,c.c_dot,n.news_id,u.user_id,u.user_name,u.user_image, s.state_id,s.state_type
+		FROM
+			tb_news n,
+			tb_comment c,
+			tb_user u,
+			tb_state s
+		where c.news_id = n.news_id and c.user_id = u.user_id and u.state_id = s.state_id and n.news_id = #{news_id.news_id}
+
+
+    </select>
+
+</mapper> 
